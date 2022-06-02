@@ -1,0 +1,15 @@
+{
+  "name": "wealthee-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "workspaces": [
+    "wealthee-server",
+    "wealthee-web"
+  ],
+  "author": "khoaphan97",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^7.2.1"
+  }
+}
