@@ -1,0 +1,6 @@
+[submodule "wealthcare-web"]
+	path = wealthcare-web
+	url = https://github.com/khoaphan97/wealthcare-web.git
+[submodule "wealthcare-server"]
+	path = wealthcare-server
+	url = https://github.com/khoaphan97/wealthcare-server.git

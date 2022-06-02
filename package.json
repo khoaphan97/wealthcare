@@ -1,11 +1,18 @@
 {
-  "name": "wealthee-app",
+  "name": "wealthcare",
   "version": "1.0.0",
   "main": "index.js",
   "workspaces": [
-    "wealthee-server",
-    "wealthee-web"
+    "wealthcare-server",
+    "wealthcare-web"
   ],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "scripts": {
+    "start:local": "concurrently \"yarn workspace @wealthcare/web start\" \"yarn workspace @wealthcare/server dev\"",
+    "deploy:hosting": "",
+    "deploy": ""
+  },
   "author": "khoaphan97",
   "license": "MIT",
   "private": true,
