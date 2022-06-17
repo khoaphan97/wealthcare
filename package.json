@@ -4,11 +4,13 @@
   "main": "index.js",
   "workspaces": [
     "wealthcare-server",
-    "wealthcare-web"
+    "wealthcare-web",
+    "common"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "scripts": {
+    "start:web": "env PROXY=https://wealthcare.herokuapp.com yarn workspace @wealthcare/web start",
     "start:local": "concurrently \"yarn workspace @wealthcare/web start\" \"yarn workspace @wealthcare/server dev\"",
     "deploy:hosting": "",
     "deploy": ""
