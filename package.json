@@ -16,7 +16,7 @@
   "scripts": {
     "start:web": "env PROXY=https://wealthcare.herokuapp.com yarn workspace @wealthcare/web start",
     "start:local": "concurrently \"yarn workspace @wealthcare/web start\" \"yarn workspace @wealthcare/server dev\" \"yarn workspace @wealthcare/common dev\"",
-    "build": "yarn workspaces foreach run build",
+    "build": "yarn workspaces foreach -p --exclude @wealthcare/web run build",
     "start": "yarn workspace @wealthcare/server start",
     "deploy:hosting": "",
     "deploy": ""
