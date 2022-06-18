@@ -10,9 +10,11 @@
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "strictNullChecks": false,
     "declaration": true
   },
   "exclude": [
-    "../node_modules"
+    "../node_modules",
+    "./build"
   ]
 }

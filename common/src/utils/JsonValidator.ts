@@ -1,6 +1,6 @@
 // import { ruleCompiler } from "./ruleCompiler";
 
-import { ruleCompiler } from './ruleCompiler';
+import { ruleCompiler, ValidationRules } from './ruleCompiler';
 
 type Primitive = "array" | "boolean" | "integer" | "null" | "number" | "object" | "string";
 
@@ -12,7 +12,11 @@ export class JsonValidator {
         properties?: {
             [key: string]: {
                 type?: Primitive;
-                rules?: any[];
+                rules?: {
+                    rule: ValidationRules;
+                    value?: any;
+                    message: string;
+                }[];
             }
         },
     } = { type: 'object' };
@@ -44,22 +48,34 @@ export class JsonValidator {
             checkers: [],
         }
         this._schema.properties[this._activeProperty].rules.map((rule) => {
-            this._compileSchema[this._activeProperty].checkers.push(ruleCompiler(rule.rule, rule.message));
+            this._compileSchema[this._activeProperty].checkers.push(ruleCompiler(rule));
         })
         this._activeProperty = null;
     }
 
-    validateAll() {
-
+    validateAll(data: any) {
+        for (let property in data) {
+            if (data[property] !== undefined) {
+                this.validateProperty(property, data[property]);
+            } else {
+                this._errors = {
+                    ...this._errors,
+                    [property]: `Property ${property} is required`
+                }
+            }
+        }
     }
 
     validateProperty(propName: string, value: any) {
+        if(this._compileSchema[propName] === undefined) {
+            throw new Error(`Property ${propName} is not compiled`);
+        }
         for (let index = 0; index < this._compileSchema[propName].checkers.length; index++) {
             const checker = this._compileSchema[propName].checkers[index];
             const validationResult = checker(value);
-            console.log(validationResult);
             if (validationResult.errorMessage) {
                 this._errors = {
+                    ...this._errors,
                     [propName]: validationResult.errorMessage
                 };
                 break;
@@ -67,12 +83,20 @@ export class JsonValidator {
         }
     }
 
-    addProps(key: string) {
+    require(key: string) {
         this._activeProperty = key;
         this._schema.properties[key] = {
             rules: []
         };
         this._schema.required.push(key);
+        return this;
+    }
+
+    option(key: string) {
+        this._activeProperty = key;
+        this._schema.properties[key] = {
+            rules: []
+        };
         return this;
     }
 
@@ -90,18 +114,18 @@ export class JsonValidator {
         return this;
     }
 
-    isEmail(message: string) {
+    isEmail(errorMessage?: string) {
         if (this._activeProperty) {
             this._schema.properties[this._activeProperty].type = 'string';
             this._schema.properties[this._activeProperty].rules.push({
                 rule: 'email',
-                message: message || 'default',
+                message: errorMessage || 'default',
             });
         }
         return this;
     }
 
-    maxLength(value: number, message: string) {
+    maxLength(value: number, errorMessage?: string) {
         if (!this._schema.properties[this._activeProperty].type) {
             throw new Error("Must define property type before apply rule");
         }
@@ -111,36 +135,49 @@ export class JsonValidator {
         }
 
         this._schema.properties[this._activeProperty].rules.push({
-            rule: `maxLength:${value}`,
-            message: message || 'default',
+            rule: "maxLength",
+            value,
+            message: errorMessage || 'default',
         });
         return this;
     }
 
-    minLength(value: number, message: string) {
+    minLength(value: number, errorMessage?: string) {
         this._schema.properties[this._activeProperty].rules.push({
-            rule: `minLength:${value}`,
-            message: message || 'default',
+            rule: "minLength",
+            value,
+            message: errorMessage || 'default',
         });
         return this;
     }
 
-    match(regExp: RegExp, message: string) {
+    hasPattern(regExp: RegExp, errorMessage?: string) {
         this._schema.properties[this._activeProperty].rules.push({
-            rule: `match:${regExp}`,
-            message: message || 'default',
+            rule: "pattern",
+            value: regExp,
+            message: errorMessage || 'default',
         });
         return this;
     }
-
-    min(value: number, message: string) {
+    
+    min(value: number, errorMessage?: string) {
         if (this._schema.properties[this._activeProperty].type === 'string') {
             throw new Error("Rule min cannot be applied to properties with type string")
         }
 
         this._schema.properties[this._activeProperty].rules.push({
-            rule: `min:${value}`,
-            message: message || 'default',
+            rule: "min",
+            value,
+            message: errorMessage || 'default',
+        });
+        return this;
+    }
+
+    equalTo(compare: any, errorMessage?: string) {
+        this._schema.properties[this._activeProperty].rules.push({
+            rule: "equalTo",
+            value: compare,
+            message: errorMessage || 'default',
         });
         return this;
     }
