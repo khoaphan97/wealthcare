@@ -1,6 +1,6 @@
 [submodule "wealthcare-web"]
 	path = wealthcare-web
-	url = https://github.com/khoaphan97/wealthcare-web.git
+	url = https://khoaphan97:DRtH1520e6Bu@github.com/khoaphan97/wealthcare-web
 [submodule "wealthcare-server"]
 	path = wealthcare-server
-	url = https://github.com/khoaphan97/wealthcare-server.git
+	url = https://khoaphan97:DRtH1520e6Bu@github.com/khoaphan97/wealthcare-server
