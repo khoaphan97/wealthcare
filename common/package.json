@@ -11,5 +11,8 @@
   "scripts": {
     "build": "npx rimraf ./build && tsc",
     "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "typescript": "^4.7.4"
   }
 }
