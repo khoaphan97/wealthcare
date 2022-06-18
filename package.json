@@ -18,8 +18,7 @@
     "start:local": "concurrently \"yarn workspace @wealthcare/web start\" \"yarn workspace @wealthcare/server dev\" \"yarn workspace @wealthcare/common dev\"",
     "build": "yarn workspaces foreach -p --exclude @wealthcare/web run build",
     "start": "yarn workspace @wealthcare/server start",
-    "deploy:hosting": "",
-    "deploy": ""
+    "deploy:hosting": ""
   },
   "author": "khoaphan97",
   "license": "MIT",
