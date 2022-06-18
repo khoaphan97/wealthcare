@@ -10,7 +10,8 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "engines": {
-    "node": "16.x"
+    "node": "16.x",
+    "yarn": "3.2.1"
   },
   "scripts": {
     "start:web": "env PROXY=https://wealthcare.herokuapp.com yarn workspace @wealthcare/web start",
@@ -31,5 +32,6 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "uuid": "^8.3.2"
-  }
+  },
+  "packageManager": "yarn@3.2.1"
 }
