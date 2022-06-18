@@ -16,8 +16,8 @@
   "scripts": {
     "start:web": "env PROXY=https://wealthcare.herokuapp.com yarn workspace @wealthcare/web start",
     "start:local": "concurrently \"yarn workspace @wealthcare/web start\" \"yarn workspace @wealthcare/server dev\" \"yarn workspace @wealthcare/common dev\"",
-    "build": "yarn workspaces foreach run build",
-    "start": "yarn workspaces @wealthcare/server start",
+    "build": "yarn workspace foreach run build",
+    "start": "yarn workspace @wealthcare/server start",
     "deploy:hosting": "",
     "deploy": ""
   },
@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
+    "rimraf": "^3.0.2",
     "uuid": "^8.3.2"
   },
   "packageManager": "yarn@3.2.1"

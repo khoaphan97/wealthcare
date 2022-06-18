@@ -9,7 +9,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "rimraf build && tsc",
+    "build": "tsc",
     "dev": "tsc --watch"
   }
 }
