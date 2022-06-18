@@ -9,6 +9,9 @@
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "start:web": "env PROXY=https://wealthcare.herokuapp.com yarn workspace @wealthcare/web start",
     "start:local": "concurrently \"yarn workspace @wealthcare/web start\" \"yarn workspace @wealthcare/server dev\" \"yarn workspace @wealthcare/common dev\"",
