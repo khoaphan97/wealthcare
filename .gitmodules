@@ -1,8 +1,8 @@
 [submodule "wealthcare-web"]
 	path = wealthcare-web
-	branch = main
 	url = https://khoaphan97:DRtH1520e6Bu@github.com/khoaphan97/wealthcare-web
+	branch = main
 [submodule "wealthcare-server"]
 	path = wealthcare-server
-	branch = main
 	url = https://khoaphan97:DRtH1520e6Bu@github.com/khoaphan97/wealthcare-server
+	branch = main
