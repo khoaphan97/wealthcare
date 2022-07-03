@@ -54,6 +54,7 @@ export class JsonValidator {
     }
 
     validateAll(data: any) {
+        this._errors = null;
         for (let property in data) {
             if (data[property] !== undefined) {
                 this.validateProperty(property, data[property]);
